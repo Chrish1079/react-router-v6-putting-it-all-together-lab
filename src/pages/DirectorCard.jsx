@@ -1,28 +1,24 @@
+import { Outlet, useOutletContext, useParams } from "react-router-dom"
 
 function DirectorCard() {
-    // Replace me
-    const director = null
+  const { directorId } = useParams()
+  const { directors, setDirectors, isLoading } = useOutletContext()
+  if (isLoading) {
+    return <p>Loading director...</p>
+  }
+  const director = directors.find((d) => d.id === directorId)
 
-    if (!director) {
-        return <h2>Director not found.</h2>
-    }
+  if (!director) {
+    return <h2>Director not found.</h2>
+  }
 
-    return (
-        <div>
-        <h2>{director.name}</h2>
-        <p>{director.bio}</p>
-        <h3>Movies:</h3>
-        <ul>
-            {director.movies.map((movie) => (
-            <li key={movie.id}>
-                <a>{movie.title}</a>
-            </li>
-            ))}
-        </ul>
-        <Link to={`movies/new`}>Add New Movie</Link>
-        {/* Movie compoenents should render here depending on route */}
-        </div>
-    )
+  return (
+    <section>
+      <h2>{director.name}</h2>
+      <p>{director.bio}</p>
+      <Outlet context={{ director, setDirectors }} />
+    </section>
+  )
 }
 
 export default DirectorCard

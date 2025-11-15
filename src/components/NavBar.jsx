@@ -1,13 +1,22 @@
-import './NavBar.css'
+import { NavLink } from "react-router-dom"
+import "./NavBar.css"
 
 function NavBar() {
+  const activeClass = ({ isActive }) => (isActive ? "active" : "")
+
   return (
     <nav className="navbar">
-      <a>Home</a>
-      <a>Directors</a>
-      <a>About</a>
+      <NavLink to="/" className={activeClass} end>
+        Home
+      </NavLink>
+      <NavLink to="/directors" className={activeClass}>
+        Directors
+      </NavLink>
+      <NavLink to="/about" className={activeClass}>
+        About
+      </NavLink>
     </nav>
-  );
+  )
 }
 
-export default NavBar;
+export default NavBar
